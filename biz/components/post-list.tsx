@@ -4,7 +4,7 @@ import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { getPosts } from "../api/postApi";
 
 const PostList = () => {
-    const { data, isPending, isFetching } = useSuspenseQuery(getPosts);
+    const { data } = useSuspenseQuery(getPosts);
 
     return (
         <div>
