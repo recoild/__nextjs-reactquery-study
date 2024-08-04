@@ -4,6 +4,7 @@ import KeycloakProvider, {
     KeycloakProfile,
 } from "next-auth/providers/keycloak";
 import { OAuthConfig } from "next-auth/providers/oauth";
+import { decode } from "next-auth/jwt";
 
 declare module "next-auth/jwt" {
     interface JWT {
@@ -27,6 +28,17 @@ export const authOptions: AuthOptions = {
                 token.provider = account.provider;
             }
             return token;
+        },
+        async session({ session, token }) {
+            session.user = {
+                ...session.user,
+                address: "서울시 강남구",
+            };
+
+            console.log("WOW THIS IS session🫢");
+            console.log(session);
+
+            return session;
         },
     },
     events: {
