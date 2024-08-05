@@ -1,5 +1,6 @@
 "use client";
 import { signOut } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 export default function Logout() {
-    return <button onClick={() => signOut()}>Signout of keycloak</button>;
+    return <Button onClick={() => signOut()}>Signout of keycloak</Button>;
 }
