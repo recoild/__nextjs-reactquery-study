@@ -10,6 +10,7 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { SparklesCore } from "@/components/ui/sparkles";
+import Login from "@/biz/components/login";
 
 export default async function Home() {
     const queryClient = getQueryClient();
@@ -67,8 +68,8 @@ export default async function Home() {
                     </Link>
                 </div>
                 <div className="flex gap-2">
-                    <Button variant="outline">회원 가입</Button>
-                    <Button>로그인</Button>
+                    {/* <Button variant="outline">회원 가입</Button> */}
+                    <Login />
                     <ModeToggle />
                 </div>
             </header>
@@ -85,7 +86,7 @@ export default async function Home() {
                         <div className="space-y-2">
                             <TypewriterEffect
                                 words={words}
-                                className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-4xl lg:text-4xl whitespace-nowrap"
+                                className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-4xl whitespace-nowrap"
                             />
                             <p className=" text-muted-foreground md:text-xl">
                                 나만의 여행 일정을 포스트로 올리고, 다른

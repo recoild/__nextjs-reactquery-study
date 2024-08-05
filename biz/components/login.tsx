@@ -1,8 +1,24 @@
 "use client";
-import { signIn } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 export default function Login() {
+    const { data } = useSession();
+
+    if (data) {
+        return (
+            <>
+                <Avatar>
+                    <AvatarImage src={data.user.image!} alt="avatar" />
+                    <AvatarFallback></AvatarFallback>
+                </Avatar>
+                <Button onClick={() => signOut()}>로그아웃</Button>
+            </>
+        );
+    }
     return (
-        <Button onClick={() => signIn("keycloak")}>Signin with keycloak</Button>
+        <>
+            <Button onClick={() => signIn("keycloak")}>로그인</Button>
+        </>
     );
 }

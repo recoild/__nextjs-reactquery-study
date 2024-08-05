@@ -22,21 +22,18 @@ export const authOptions: AuthOptions = {
         }),
     ],
     callbacks: {
-        async jwt({ token, account }) {
+        async jwt({ token, user, account, profile }) {
             if (account) {
                 token.id_token = account.id_token;
                 token.provider = account.provider;
             }
+
             return token;
         },
         async session({ session, token }) {
             session.user = {
                 ...session.user,
-                address: "서울시 강남구",
             };
-
-            console.log("WOW THIS IS session🫢");
-            console.log(session);
 
             return session;
         },
