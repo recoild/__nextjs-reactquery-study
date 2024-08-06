@@ -1,5 +1,5 @@
 import NextAuth, { AuthOptions } from "next-auth";
-import { JWT } from "next-auth/jwt";
+import { JWT, JWTDecodeParams } from "next-auth/jwt";
 import KeycloakProvider, {
     KeycloakProfile,
 } from "next-auth/providers/keycloak";
@@ -39,6 +39,27 @@ export const authOptions: AuthOptions = {
         },
     },
     events: {
+        async signIn({ user, account, profile }) {
+            console.log("Sign in", account?.access_token);
+            if (account) {
+                try {
+                    console.log("Fetching /hello with access token");
+                    const response = await fetch(
+                        "http://localhost:8080/hello",
+                        {
+                            headers: {
+                                Authorization: `Bearer ${account.access_token}`,
+                            },
+                            cache: "no-store",
+                        }
+                    );
+                    console.log(response.status);
+                    console.log(await response.text());
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        },
         async signOut({ token }: { token: JWT }) {
             if (token.provider === "keycloak") {
                 const issuerUrl = (
